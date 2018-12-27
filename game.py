@@ -87,14 +87,12 @@ class Ball:
             # The ball bounces off the left bat.
             if leftbat.yposition < self.yposition < (leftbat.yposition + BAT_HEIGHT):
                 print(leftbat.yposition, self.yposition, leftbat.yposition + BAT_HEIGHT)
-                self.speed = -self.speed
-                myrange = numpy.linspace(0, math.pi * 2, num=BAT_HEIGHT)
+                myrange = numpy.linspace(0, math.pi / 4, num=BAT_HEIGHT)
                 print(f"LEFTBAT {int(self.yposition - leftbat.yposition)}")
-                self.angle = myrange[int(self.yposition - leftbat.yposition)]
-                self.xposition = BAT_WIDTH + 1
+                self.angle = (myrange[int(self.yposition - leftbat.yposition)])
 
                 # DIRTY HACK. Move the ball to the right so we don't get "double hits"
-                self.xposition = BAT_WIDTH + 1 + BALL_SPEED
+                self.xposition = BAT_WIDTH + 5 + BALL_SPEED
 
             # The left player has missed the ball.
             else:
@@ -107,14 +105,13 @@ class Ball:
             # The ball bounces off the right bat.
             if rightbat.yposition < self.yposition < (rightbat.yposition + BAT_HEIGHT):
                 print(rightbat.yposition, self.yposition, rightbat.yposition + BAT_HEIGHT)
-                self.speed = -self.speed
-                myrange = numpy.linspace(0, math.pi * 2, num=BAT_HEIGHT)
+                myrange = numpy.linspace((math.pi / 2), ((3 * math.pi) / 2), num=BAT_HEIGHT)
                 print(f"RIGHTBAT {int(self.yposition - rightbat.yposition)}")
-                self.angle = myrange[int(self.yposition - rightbat.yposition)]
+                self.angle = -(myrange[int(self.yposition - rightbat.yposition)])
                 self.xposition = game.surface_width - BAT_WIDTH - 1
 
                 # DIRTY HACK. Move the ball speed to the left so we don't get "double hits"
-                self.xposition = game.surface_width - BAT_WIDTH - BALL_SPEED
+                self.xposition = game.surface_width - 5 - BAT_WIDTH - BALL_SPEED
 
 
             # The right player has missed the ball
