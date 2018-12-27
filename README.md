@@ -5,7 +5,7 @@ The result of a coding challenge, this is the first "game" I've written in Pytho
 
 The task was to make something like pong in < 3 hours, and this took me 2hrs and 43mins of coding time.
 
-It has a bunch of bugs (mostly on double hits on the bat, and , and some nasty copy+paste code on the ball bounces.
+It has a bunch of bugs (mostly on double hits on the bat and some nasty copy+paste code on the ball bounces.
 
 How to play
 -----------
