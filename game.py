@@ -12,6 +12,8 @@ BALL_WIDTH = 3
 BALL_HEIGHT = 3
 BALL_SPEED = 5
 FRAMERATE = 60
+SPEED_INCREMENT = 0.003
+NEW_BALL_PAUSE = 3
 
 # COLOURS
 BLACK = (0, 0, 0)
@@ -53,6 +55,7 @@ class Ball:
         self.xposition = self.newball_xposition
         self.yposition = self.newball_yposition
         self.angle = random.uniform(0, math.pi * 2)
+        self.speed = BALL_SPEED
 
     def render(self):
         pygame.draw.rect(game.display_surface, RED,
@@ -86,9 +89,7 @@ class Ball:
         if self.xposition <= BAT_WIDTH:
             # The ball bounces off the left bat.
             if leftbat.yposition < self.yposition < (leftbat.yposition + BAT_HEIGHT):
-                print(leftbat.yposition, self.yposition, leftbat.yposition + BAT_HEIGHT)
                 myrange = numpy.linspace(0, math.pi / 4, num=BAT_HEIGHT)
-                print(f"LEFTBAT {int(self.yposition - leftbat.yposition)}")
                 self.angle = (myrange[int(self.yposition - leftbat.yposition)])
 
                 # DIRTY HACK. Move the ball to the right so we don't get "double hits"
@@ -98,15 +99,16 @@ class Ball:
             else:
                 # Make a newball and pause for a second.
                 self.newball()
-                time.sleep(1)
+                time.sleep(NEW_BALL_PAUSE)
+
+        # Finally, speed the ball up very very slightly
+        self.speed += SPEED_INCREMENT
 
 
         if self.xposition >= (game.surface_width - BAT_WIDTH):
             # The ball bounces off the right bat.
             if rightbat.yposition < self.yposition < (rightbat.yposition + BAT_HEIGHT):
-                print(rightbat.yposition, self.yposition, rightbat.yposition + BAT_HEIGHT)
                 myrange = numpy.linspace((math.pi / 2), ((3 * math.pi) / 2), num=BAT_HEIGHT)
-                print(f"RIGHTBAT {int(self.yposition - rightbat.yposition)}")
                 self.angle = -(myrange[int(self.yposition - rightbat.yposition)])
                 self.xposition = game.surface_width - BAT_WIDTH - 1
 
@@ -118,7 +120,7 @@ class Ball:
             else:
                 # Make a newball and pause for a second.
                 self.newball()
-                time.sleep(1)
+                time.sleep(NEW_BALL_PAUSE)
 
 
 class Game:
